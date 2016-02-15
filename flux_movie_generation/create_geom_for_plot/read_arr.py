@@ -1,27 +1,28 @@
-#---- Read array from KENO and have corespond to x,y axis for plotting
+#-- Read array from KENO and have corespond to x,y axis for plotting
 
-#!!---Declarations---!
+#---------------------Declarations---------------------------
 import matplotlib.cm as cm
 import matplotlib as mpl
 import numpy as np
 import matplotlib.pyplot as plt
-#----Variables---!
+#---------------------Variables------------------------------
 array_x_y_unit = []
-x_pts = []
-y_pts = []
-z_pts = []
+x_pts =   []
+y_pts =   []
+z_pts =   []
 color_z = []
+#---------------GET THE UNIT NUMBERS FROM KENO ARRAY----------
 filename= raw_input("Enter the file name containing the array: ")
 
 data = np.loadtxt(filename)
 
 class point_on_grid(object):
-	def __init__(self,x,y,unit_num,color):
+	def __init__(self,x,y,unit_num,region_array):
 		self.x=x
 		self.y=y
 		self.unit_num=unit_num
-		self.color=color
-#----
+		self.region_array=region_array
+#-------------------------------------------------------------
 max_x=len(data)
 max_y=len(data[0])
 i=0
@@ -39,6 +40,17 @@ for q in range (len(array_x_y_unit)):
 	z_pts.append(array_x_y_unit[q].unit_num)
 
 #color = [str(item/255.) for item in z_norm]
+
+#-------------------------------------------------------------
+#volumes_file = np.loadtxt('volumes')
+volumes_file = np.genfromtxt('volumes',usecols=(0,1,2,3,4),delimiter=' ')
+
+#---------Assign data to arrays from volumes file------------
+region_num_absolute = volumes_file[:,0]
+unit_num_ar = volumes_file[:,1]
+region_num_ar = volumes_file[:,4]
+
+print region_num_ar 
 
 plt.scatter(x_pts,y_pts,marker='s',s=150,c=z_pts)
 
