@@ -24,8 +24,8 @@ datafilename = "flux.for.0"
         print *,time,klgkeff
 
         do k=1,kmax
-            read(iflux) flux_array(k,1),ngp,engp,incr  
-            print *, flux_array(k,1),ngp,engp,incr 
+            read(iflux) flux_array(k,238),ngp,engp,incr  
+            print *, flux_array(k,238),ngp,engp,incr 
         end do
 
 end program

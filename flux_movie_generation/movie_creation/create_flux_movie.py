@@ -3,10 +3,22 @@
 
 import numpy as np
 
-file="flux.for.0"
+filename="flux.for.0"
 
-array = np.fromfile(file,dtype=float,count=-1,sep="")
-print len(array) 
-print array[0]
+input_file = open(filename, 'r')
 
 
+array = np.fromfile(filename,dtype=float,count=-1,sep="")
+
+with open(filename,'r') as f:
+	header = np.fromfile(f, dtype=np.int, count=-1)
+	data = np.fromfile(f, dtype=np.float32)
+	print data
+#with open(filename, 'rb') as f:
+#	    data = f.read(16)
+#	    text = data.decode('utf-8') 
+#	    print text
+i=0
+#for i in array:
+#	print array[i]
+##	i+=1
