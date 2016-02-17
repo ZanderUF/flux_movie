@@ -6,6 +6,7 @@
 
 
 import re
+import numpy as np
 
 filename= raw_input("Enter the file name containing the array: ")
 
@@ -14,10 +15,12 @@ output_file = open('volumes','w')
 
 i=1
 for line in input_file:
-	if "unit     uses    region     mixture        total region volume (cm**3)" in line:
+	if "unit  region   density     deviation      fissions" in line:
 		for line in input_file:
-			if "mixture       total mixture volume (cm**3)            total mixture mass (gm)" in line:
+			if "  writing fluxes to file flux.for....." in line:
 				break
-			if line !=  '\n':
-				output_file.write(str(i) + line)
-				i+=1
+#			if line !=  '\n':
+			output_file.write( line)
+			np.array(line)			
+			i+=1
+
