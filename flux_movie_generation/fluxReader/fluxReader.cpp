@@ -145,9 +145,10 @@ float* organizeFloatInput(string command, int& size)
 	return input;
 }
 
-void printFluxesByUnit(queue<KenoUnit*> & units)
+void printFluxesByUnit(queue<KenoUnit*> & units, string whichOutput)
 {
-	ofstream output ("unitFluxes.out");
+	string filename = "totalUnitFluxes_" + whichOutput + ".out";
+	ofstream output (filename);
 	KenoUnit* myUnit = new KenoUnit();
 
 	if (output.is_open())
@@ -156,7 +157,6 @@ void printFluxesByUnit(queue<KenoUnit*> & units)
 		{
 			myUnit = units.front();
 			output << myUnit->getUnitNum() << " " << myUnit->getTotalFlux() << endl;
-			cout << myUnit->getUnitNum() << " " << myUnit->getTotalFlux() << endl;
 	  		units.pop();	
 		}
 
@@ -164,9 +164,21 @@ void printFluxesByUnit(queue<KenoUnit*> & units)
 	}
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-	fstream keno_output ("_out000000000000000000");
+	if (argc != 2)
+	{
+		cout << "You must include the file name as a CL argument." << endl;
+		return -1;
+	}
+
+	string filename = argv[1];
+
+	int stringSize = filename.length();
+
+	string whichOutput = filename.substr(stringSize-2,stringSize-1); // will get the last two characters of the output file. ex "00" or "13"
+
+	fstream keno_output (filename);
 
 	queue<KenoUnit*> units;
 
@@ -298,18 +310,8 @@ int main()
 			}
 		}
 
-		printFluxesByUnit(units);
+		printFluxesByUnit(units, whichOutput);
 
-/*		while (!units.empty())
-		{
-			myUnit = units.front();
-
-			cout << "Unit " << myUnit->getUnitNum() << endl;
-			myUnit->printAllFluxes();
-			cout << endl << endl;
-
-			units.pop();			
-		}*/
 	}
 
 	keno_output.close();
