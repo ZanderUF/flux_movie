@@ -52,14 +52,14 @@ for q in range (len(array_x_y_unit)):
 	y_pts.append(array_x_y_unit[q].y)
 	z_pts.append(round(array_x_y_unit[q].tot_flux,6))
 
-zmoney = np.log(z_pts)
+zlog = np.log(z_pts)
 i=0
-for i in range(len(zmoney)):
-	 round(zmoney[i],2)
+for i in range(len(zlog)):
+	 round(zlog[i],4)
 #-------------------------------------------------------------
 
 #-------------PLOT-------------------------------------------
-plt.scatter(x_pts,y_pts,marker='s',s=250,c=zmoney,cmap=plt.cm.coolwarm)
+plt.scatter(x_pts,y_pts,marker='s',s=250,c=zlog,cmap=plt.cm.coolwarm)
 
 figname = file_tot_flux + "image"
 plt.savefig(figname + '.pdf')
