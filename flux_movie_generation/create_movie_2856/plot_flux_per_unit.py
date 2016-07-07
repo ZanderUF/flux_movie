@@ -56,10 +56,19 @@ zlog = np.log(z_pts)
 i=0
 for i in range(len(zlog)):
 	 round(zlog[i],4)
+
+plt.colorbar(zlog)
 #-------------------------------------------------------------
+mymap = mpl.colors.LinearSegmentedColormap.from_list('mycolors',['blue','red'])
+Z = [[0,0],[0,0]]
+levels = range(min,max+step,step)
+CS3 = plt.contourf(Z, levels, cmap=mymap)
+plt.clf()
+
+plt.colorbar(CS3) # using the colorbar info I got from contourf
 
 #-------------PLOT-------------------------------------------
-plt.scatter(x_pts,y_pts,marker='s',s=250,c=zlog,cmap=plt.cm.coolwarm)
+plt.scatter(x_pts,y_pts,marker='s',s=250,c=zlog)
 
 figname = file_tot_flux + "image"
 plt.savefig(figname + '.pdf')
